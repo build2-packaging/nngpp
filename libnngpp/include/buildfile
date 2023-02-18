@@ -1,0 +1,41 @@
+import intf_libs = libnng%lib{nng}
+
+lib{nngpp}: hxx{**}
+lib{nngpp}: $intf_libs
+
+out_inc = [dir_path] $out_root/include/
+src_inc = [dir_path] $src_root/include/
+
+platform_poptions =
+switch $cxx.target.class
+{
+    case 'windows'
+    {
+        if ($cxx.id == 'msvc')
+        {
+            platform_coptions += /EHsc /bigobj /Zc:__cplusplus /MP
+            platform_poptions += -D_SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING
+        }
+    }
+}
+
+cxx.poptions += "-I$out_inc" "-I$src_inc" $platform_poptions
+
+lib{nngpp}:
+{
+  cxx.export.poptions = "-I$out_inc" "-I$src_inc" $platform_poptions
+  cxx.export.libs = $intf_libs
+}
+
+# For pre-releases use the complete version to make sure they cannot be used
+# in place of another pre-release or the final version. See the version module
+# for details on the version.* variable values.
+if $version.pre_release
+  lib{nngpp}: bin.lib.version = "-$version.project_id"
+else
+  lib{nngpp}: bin.lib.version = "-$version.major.$version.minor"
+
+hxx{*}:
+{
+  install.subdirs = true
+}
