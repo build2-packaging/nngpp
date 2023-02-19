@@ -1,0 +1,1 @@
+./: {*/ -build/} legal{license.txt} doc{readme.md} manifest

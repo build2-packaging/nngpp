@@ -1,3 +1,3 @@
-import pkgs = libnngpp/
+import pkgs = libnngpp/ libnngpp-examples/
 
 ./: $pkgs

@@ -1,8 +1,8 @@
 : 1
-name: libnngpp
+name: libnngpp-examples
 version: 1.5.2-a.0.z
 project: NNG
-summary: C++ wrapper around the nanomsg NNG API
+summary: Examples for the nngpp library
 license: MIT
 description-file: readme.md
 topics: C++, Network, IoT
@@ -13,8 +13,6 @@ package-url: https://github.com/build2-packaging/nngpp
 package-email: packaging@build2.org ; Mailing list.
 builds: default
 requires: c++14
-examples: libnngpp-examples
 
 depends: * build2 >= 0.16.0-
 depends: * bpkg >= 0.16.0-
-depends: libnng ^1.5.2-

@@ -1,0 +1,19 @@
+import impl_libs = libnngpp%lib{nngpp}
+
+examples = http_client raw reqrep rest
+
+for example: $examples
+{
+    example_name = $(example)_example
+    exe{$example_name}: $example/cxx{*}
+    exe{$example_name}: $impl_libs
+    ./: exe{$example_name}
+}
+
+exe{async_client_example}: async/cxx{client}
+exe{async_client_example}: $impl_libs
+./: exe{async_client_example}
+
+exe{async_server_example}: async/cxx{server}
+exe{async_server_example}: $impl_libs
+./: exe{async_server_example}
